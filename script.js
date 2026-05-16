@@ -1,17 +1,57 @@
-const dishes = [
-  { name: "家常一号", mark: "1", meat: "青椒炒肉丝", vegetable: "蒜蓉空心菜", soup: "番茄蛋花汤" },
-  { name: "下饭二号", mark: "2", meat: "小炒黄牛肉", vegetable: "清炒西兰花", soup: "紫菜虾皮汤" },
-  { name: "香辣三号", mark: "3", meat: "宫保鸡丁", vegetable: "醋溜土豆丝", soup: "冬瓜丸子汤" },
-  { name: "清爽四号", mark: "4", meat: "木耳炒鸡蛋", vegetable: "蚝油生菜", soup: "丝瓜菌菇汤" },
-  { name: "浓香五号", mark: "5", meat: "回锅肉", vegetable: "干煸四季豆", soup: "玉米排骨汤" },
-  { name: "鲜嫩六号", mark: "6", meat: "葱爆羊肉", vegetable: "香菇油菜", soup: "萝卜牛肉汤" },
-  { name: "酸甜七号", mark: "7", meat: "糖醋里脊", vegetable: "蒜香娃娃菜", soup: "海带豆腐汤" },
-  { name: "川味八号", mark: "8", meat: "鱼香肉丝", vegetable: "炝炒包菜", soup: "酸辣汤" },
-  { name: "轻盈九号", mark: "9", meat: "芹菜炒虾仁", vegetable: "荷塘小炒", soup: "山药鸡汤" },
-  { name: "经典十号", mark: "10", meat: "番茄炒牛肉", vegetable: "清炒莴笋", soup: "裙带菜蛋汤" },
-  { name: "暖胃十一号", mark: "11", meat: "土豆烧鸡块", vegetable: "蒜苗炒香干", soup: "白菜豆腐汤" },
-  { name: "满足十二号", mark: "12", meat: "黑椒杏鲍菇牛柳", vegetable: "清炒油麦菜", soup: "莲藕花生汤" }
+const mainDishes = [
+  "辣椒炒肉",
+  "葱油梭子蟹",
+  "干烧梭子蟹",
+  "水煮鱼头",
+  "辣椒炒虾",
+  "糯米笋炒肉",
+  "胡萝卜炒肉",
+  "香煎鲫鱼",
+  "清蒸肉",
+  "粉蒸肉",
+  "土豆片炒肉",
+  "可乐鸡翅",
+  "爆炒腰花",
+  "辣炒猪肝",
+  "辣炒黄牛肉",
+  "辣炒猪头肉",
+  "辣炒肥肠",
+  "辣炒黄辣丁",
+  "红烧筒骨",
+  "红烧肉",
+  "红烧排骨",
+  "黄豆烧鸡爪",
+  "腐竹烧肉",
+  "毛豆炒肉",
+  "红烧猪蹄",
+  "苦瓜炒肉",
+  "茭白炒肉",
+  "蒜蓉对虾"
 ];
+
+const sideDishes = [
+  "干锅包菜",
+  "虎皮青椒",
+  "冬瓜虾米汤",
+  "清炒空心菜",
+  "酸辣土豆丝",
+  "油渣芋芳羹",
+  "萝卜排骨汤",
+  "清炒冬瓜",
+  "清炒南瓜",
+  "清炒西兰花",
+  "凉拌皮蛋",
+  "西红柿鸡蛋汤",
+  "西红柿炒鸡蛋"
+];
+
+const dishes = mainDishes.map((meat, index) => ({
+  name: `套餐 ${index + 1}`,
+  mark: String(index + 1),
+  meat,
+  vegetableA: sideDishes[index % sideDishes.length],
+  vegetableB: sideDishes[(index + 5) % sideDishes.length]
+}));
 
 const grid = document.querySelector("#dishGrid");
 const startButton = document.querySelector("#startButton");
@@ -30,8 +70,8 @@ function renderDishes() {
       <h2>${dish.name}</h2>
       <ul class="menu-lines" aria-label="${dish.name}菜单">
         <li><span>荤</span>${dish.meat}</li>
-        <li><span>素</span>${dish.vegetable}</li>
-        <li><span>汤</span>${dish.soup}</li>
+        <li><span>素</span>${dish.vegetableA}</li>
+        <li><span>素</span>${dish.vegetableB}</li>
       </ul>
     </article>
   `).join("");
@@ -50,7 +90,7 @@ function pickTarget() {
 }
 
 function buildSteps(targetIndex) {
-  const minRounds = 3;
+  const minRounds = 2;
   const current = activeIndex;
   const distance = (targetIndex - current + dishes.length) % dishes.length;
   const total = minRounds * dishes.length + distance;
@@ -59,7 +99,7 @@ function buildSteps(targetIndex) {
   for (let step = 0; step <= total; step += 1) {
     const progress = step / total;
     const eased = progress * progress * progress;
-    const delay = 42 + eased * 285;
+    const delay = 36 + eased * 270;
     steps.push({
       index: (current + step) % dishes.length,
       delay
@@ -70,7 +110,7 @@ function buildSteps(targetIndex) {
 }
 
 function resultLabel(dish) {
-  return `${dish.name}：${dish.meat} + ${dish.vegetable} + ${dish.soup}`;
+  return `${dish.meat} + ${dish.vegetableA} + ${dish.vegetableB}`;
 }
 
 function runLottery() {
