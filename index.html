@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今晚吃什么抽奖机</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app" aria-label="今晚吃什么抽奖网页">
+    <section class="hero">
+      <p class="eyebrow">DINNER PICKER</p>
+      <h1>今晚吃什么</h1>
+      <p class="subtitle">十二套家常炒菜组合，一按就决定今晚的一荤一素一汤。</p>
+    </section>
+
+    <section class="console" aria-label="菜品抽奖机">
+      <div class="console-top">
+        <div>
+          <span class="status-dot"></span>
+          <span id="statusText">准备开饭</span>
+        </div>
+        <div class="pill">十二格套餐模式</div>
+      </div>
+
+      <div class="dish-grid" id="dishGrid"></div>
+
+      <div class="control-deck">
+        <button class="start-button" id="startButton" type="button">
+          <span>START</span>
+          开始抽奖
+        </button>
+        <div class="result-card" aria-live="polite">
+          <span>今晚推荐</span>
+          <strong id="resultText">还没开始</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
